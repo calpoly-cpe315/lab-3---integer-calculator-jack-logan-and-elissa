@@ -4,8 +4,11 @@
     .global intmul
 
 intmul:
-    stp x29, x30, [sp, -16]!
+    stp x29, x30, [sp, #-48]!
     mov x29, sp
+    //Calle Setup
+    stp x23, x24, [sp, 16]
+    stp x25, x26, [sp, 32]
 
     mov x23, x0 // numA
     mov x24, x1 // numB
@@ -14,6 +17,10 @@ loop:
 
     cmp x24, 0
     b.eq endfunc
+
+    and x26, x24, #1  //x26 is to see if x24 (numB) has LSR all the way to 0
+    cmp x26, #0
+    b.eq skip
 
     // result += a
     mov x0, x25
@@ -27,9 +34,13 @@ loop:
     bl intsub
     mov x24, x0
 
-    b loop
+skip: lsl x23, x23, #1
+      lsr x24, x24, #1
+       b loop
 
 endfunc:
     mov    x0, x25
-    ldp    x29, x30, [sp], 16
+    ldp x23, x24, [sp, 16]
+    ldp x25, x26, [sp, 32]
+    ldp    x29, x30, [sp], 48  // Caller Teardown
     ret

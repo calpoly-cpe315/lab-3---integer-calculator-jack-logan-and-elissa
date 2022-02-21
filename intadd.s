@@ -34,8 +34,11 @@ intadd:
     return x
     */
 
-    stp     x29, x30, [sp, -16]! // Store FP, LR
+    stp     x29, x30, [sp, #-48]! // Store FP, LR
     mov     x29, sp
+    //Calle Setup
+    stp x19, x20, [sp, 16]
+    stp x21, x22, [sp, 32]
 
     //start add
         //x19 = numA
@@ -55,7 +58,8 @@ intadd:
         b loop
 
     endloop:
-
-    mov x0,x19      //set output parameter
-    ldp    x29, x30, [sp], 16   // Caller Teardown
-    ret
+        mov x0,x19      //set output parameter
+        ldp x19, x20, [sp, 16]     //x19 = numA, x20 = numB
+        ldp x21, x22, [sp, 32]     //x21 = carry1 x22 = carry2
+        ldp    x29, x30, [sp], 48  // Caller Teardown
+        ret
