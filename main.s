@@ -26,18 +26,18 @@ intcalc:
         //get number 1
         ldr    w0, =enterstring1
         bl printf
-        ldr     w0, =number
+        ldr     x0, =number
         mov     x1, sp          // Save stack pointer to x1, you must create space
         bl      scanf           // Scan user's answer
-        ldrsw   x0, [sp]        // Put the user's value in r0
+        ldr   x0, [sp]        // Put the user's value in r0
         mov     x24,x0          //store A
         //get number 2
         ldr    w0, =enterstring2
         bl printf
-        ldr     w0, =number
+        ldr     x0, =number
         mov     x1, sp          // Save stack pointer to x1, you must create space
         bl      scanf           // Scan user's answer
-        ldrsw   x0, [sp]        // Put the user's value in r0
+        ldr   x0, [sp]        // Put the user's value in r0
         mov     x25,x0          //store B
 
       //get operation
@@ -48,7 +48,7 @@ intcalc:
       bl      scanf           // Scan user's answer
       ldr     x1, =star       // Put address of 'star' in x1
       ldrb    w1, [x1]        // Load the actual character 'star' into x1
-      ldrb    w0, [sp]        // Put the user's value in x1
+      ldrb    w0, [sp]        // Put the user's value in x0
       mov     w2, w0          // move the user's value in x2
       mov     w3, w1          // move the actual character in x3
       mov     x0,x24
@@ -141,7 +141,7 @@ invalid:
 
 //Input Prompt
 number:
-    .asciz "%d"
+    .asciz "%ld"
 enterstring1:
     .asciz "Enter Number 1: "
 enterstring2:
@@ -151,4 +151,4 @@ enterstring3:
 
 //Output Prompt
 outstring:
-    .asciz "Result is: %d\n"
+    .asciz "Result is: %ld\n"
