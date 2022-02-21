@@ -112,8 +112,8 @@ loop:
 
 endcalc:
     // Restore Registers
-       ldp     x24, x25, [sp, 16]   // x19 = numDisks, x20 = start
-       ldp     x26, x27, [sp, 32]   // x21 = goal, x22 = peg
+       ldp     x24, x25, [sp, 16]
+       ldp     x26, x27, [sp, 32]
        ldp     x29, x30, [sp], 48   // Caller Teardown
        ret
 
