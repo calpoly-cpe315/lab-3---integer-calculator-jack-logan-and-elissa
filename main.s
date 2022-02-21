@@ -29,6 +29,16 @@ intcalc:
         ldr     w0, =number
         mov     x1, sp          // Save stack pointer to x1, you must create space
         bl      scanf           // Scan user's answer
+        ldrsw   x0, [sp]        // Put the user's value in r0
+        mov     x24,x0          //store A
+        //get number 2
+        ldr    w0, =enterstring2
+        bl printf
+        ldr     w0, =number
+        mov     x1, sp          // Save stack pointer to x1, you must create space
+        bl      scanf           // Scan user's answer
+        ldrsw   x0, [sp]        // Put the user's value in r0
+        mov     x25,x0          //store B
 
       //get operation
       ldr     w0, =enterstring3
